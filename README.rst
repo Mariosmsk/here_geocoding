@@ -3,17 +3,20 @@ here-geocoding
 ==============
 
 
-.. image:: https://img.shields.io/pypi/v/here_geocoding.svg
-        :target: https://pypi.python.org/pypi/here_geocoding
-
-.. image:: https://img.shields.io/travis/mariosmsk/here_geocoding.svg
-        :target: https://travis-ci.com/mariosmsk/here_geocoding
+.. image:: https://img.shields.io/pypi/v/here-geocoding.svg
+        :target: https://pypi.python.org/pypi/here-geocoding
 
 .. image:: https://readthedocs.org/projects/here-geocoding/badge/?version=latest
         :target: https://here-geocoding.readthedocs.io/en/latest/?version=latest
         :alt: Documentation Status
 
+.. image:: https://pepy.tech/badge/here-geocoding
+        :target: https://pepy.tech/badge/here-geocoding
+        :alt: Downloads
 
+.. image:: https://pepy.tech/badge/here-geocoding/month
+        :target: https://pepy.tech/badge/here-geocoding
+        :alt: Downloads
 
 
 The "here-geocoding" package is a Python library designed to streamline the process of converting addresses stored in an Excel (xlsx) file into latitude and longitude coordinates. It provides a convenient solution for geocoding large sets of addresses using the HERE geocoding service.

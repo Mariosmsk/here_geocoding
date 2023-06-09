@@ -36,6 +36,7 @@ Example
 Find the api key: https://platform.here.com/admin/apps/
 
 .. code-block:: python
+    
     from here_geocoding import geocoding
 
     api_key = 'YOUR API KEY'  # OK

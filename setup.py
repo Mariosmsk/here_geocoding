@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['requests', 'pyproj', 'pandas', 'here_location_services']
+requirements = ['requests', 'pyproj', 'pandas', 'here_location_services', 'openpyxl']
 
 test_requirements = []
 
@@ -47,7 +47,7 @@ setup(
     packages=find_packages(include=['here_geocoding', 'here_geocoding.*']),
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/mariosmsk/here_geocoding',
-    version='0.1.0',
+    url='https://github.com/Mariosmsk/here_geocoding',
+    version='0.2.0',
     zip_safe=False,
 )

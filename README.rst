@@ -55,7 +55,7 @@ Find the api key: https://platform.here.com/admin/apps/
     # Example 3
     data_geojson = d.address_to_lnglat(address='1 Panepistimiou Ave., Aglantzia, 2109, Nicosia, Cyprus', geojson=True)
     print(data_geojson)
-    z
+    
     # Example 4
     # using as example the csv file from: https://github.com/geocommons/geocoder/blob/master/test/data/address-sample.csv
     d.geocode_excel(file_path='address-sample.xlsx', start_row=-1, end_row=20, address_column='address', bbox=None,

@@ -18,6 +18,7 @@ here-geocoding
 
 The "here-geocoding" package is a Python library designed to streamline the process of converting addresses stored in an Excel (xlsx) file into latitude and longitude coordinates. It provides a convenient solution for geocoding large sets of addresses using the HERE geocoding service.
 
+The package is based on the: https://github.com/heremaps/here-location-services-python
 
 * Free software: MIT license
 * Documentation: https://here-geocoding.readthedocs.io.

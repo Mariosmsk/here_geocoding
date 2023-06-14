@@ -54,8 +54,7 @@ class geocoding:
         return y, x
 
     def geocode_excel(self, file_path='', start_row=-1, end_row=None, address_column=None, bbox=None, to_crs=None,
-                      export_file_name='test', export_file_type='csv', showprint=True, create_continue=False,
-                      pause=0.01):
+                      export_file_name='test', export_file_type='csv', showprint=True, create_continue=False, pause=0.01):
 
         df = pd.read_excel(file_path)
         if end_row is None:
@@ -63,6 +62,7 @@ class geocoding:
 
         latlng = []
         all_col_keys = list(df.keys())
+        all_col_keys.extend(['lat', 'lng'])
         for i, address in enumerate(df[address_column]):
             if showprint:
                 print(i)
@@ -74,8 +74,7 @@ class geocoding:
                 all_col_values.extend([y, x])
                 latlng.append(all_col_values)
                 time.sleep(pause)
-            if create_continue or i == end_row:
-                all_col_keys.extend(['lat', 'lng'])
+            if create_continue or i == (end_row-1):
                 df_new = pd.DataFrame(latlng, columns=all_col_keys)
                 export_file = export_file_name + '.' + export_file_type
                 if export_file_type == 'csv':
@@ -97,7 +96,6 @@ class geocoding:
                             "geometry": {
                                 "type": "Point",
                                 "coordinates": [row['lat'], row['lng']]
-                                # Replace 'Longitude' and 'Latitude' with your column names
                             }
                         }
                         geojson['features'].append(feature)

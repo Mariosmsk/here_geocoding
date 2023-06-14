@@ -1,6 +1,5 @@
 """Main module."""
 import time
-
 import requests
 import pyproj  # 2.6.1post1
 import random

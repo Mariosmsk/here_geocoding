@@ -1,4 +1,6 @@
 """Main module."""
+import time
+
 import requests
 import pyproj  # 2.6.1post1
 import random
@@ -22,10 +24,11 @@ class geocoding:
         if address is None:
             return False
         try:
+            x, y = 0, 0
             if bbox is None:
-                geo = self.ls.geocode(query=address)
+                geo = self.ls.geocode(query=address.rstrip())
             else:
-                geo = self.ls.autosuggest(query=address, search_in_bbox=bbox)
+                geo = self.ls.autosuggest(query=address.rstrip(), search_in_bbox=bbox)
             data_json = json.dumps(geo.to_geojson(), indent=2, sort_keys=True)
             data = json.loads(data_json)
             try:
@@ -52,50 +55,54 @@ class geocoding:
         return y, x
 
     def geocode_excel(self, file_path='', start_row=-1, end_row=None, address_column=None, bbox=None, to_crs=None,
-                      export_file_name='test', export_file_type='csv'):
+                      export_file_name='test', export_file_type='csv', showprint=True, create_continue=False,
+                      pause=0.01):
 
         df = pd.read_excel(file_path)
         if end_row is None:
             end_row = df[address_column].__len__()
 
         latlng = []
+        all_col_keys = list(df.keys())
         for i, address in enumerate(df[address_column]):
+            if showprint:
+                print(i)
             if end_row < i:
                 break
             if i > start_row:
-                x, y = self.address_to_lnglat(address=address, bbox=bbox, to_crs=to_crs)
+                x, y = self.address_to_lnglat(address=address.rstrip(), bbox=bbox, to_crs=to_crs)
                 all_col_values = list(df.iloc[i, :])
                 all_col_values.extend([y, x])
                 latlng.append(all_col_values)
-
-        all_col_keys = list(df.keys())
-        all_col_keys.extend(['lat', 'lng'])
-        df_new = pd.DataFrame(latlng, columns=all_col_keys)
-        export_file = export_file_name + '.' + export_file_type
-        if export_file_type == 'csv':
-            df_new.to_csv(export_file)
-        if export_file_type == 'geojson':
-            geojson = {
-                "type": "FeatureCollection",
-                "features": []
-            }
-
-            for _, row in df_new.iterrows():
-                properties = {}
-                for key in df.keys():
-                    properties[key] = row[key]
-
-                feature = {
-                    "type": "Feature",
-                    "properties": properties,
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [row['lat'], row['lng']]
-                        # Replace 'Longitude' and 'Latitude' with your column names
+                time.sleep(pause)
+            if create_continue or i == end_row:
+                all_col_keys.extend(['lat', 'lng'])
+                df_new = pd.DataFrame(latlng, columns=all_col_keys)
+                export_file = export_file_name + '.' + export_file_type
+                if export_file_type == 'csv':
+                    df_new.to_csv(export_file)
+                if export_file_type == 'geojson':
+                    geojson = {
+                        "type": "FeatureCollection",
+                        "features": []
                     }
-                }
-                geojson['features'].append(feature)
 
-            with open(export_file, 'w') as f:
-                json.dump(geojson, f)
-            print(f'File created "{export_file}".')
+                    for _, row in df_new.iterrows():
+                        properties = {}
+                        for key in df.keys():
+                            properties[key] = row[key]
+
+                        feature = {
+                            "type": "Feature",
+                            "properties": properties,
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [row['lat'], row['lng']]
+                                # Replace 'Longitude' and 'Latitude' with your column names
+                            }
+                        }
+                        geojson['features'].append(feature)
+
+                    with open(export_file, 'w') as f:
+                        json.dump(geojson, f)
+                    print(f'File created "{export_file}".')

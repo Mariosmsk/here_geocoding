@@ -10,12 +10,12 @@ here-geocoding
         :target: https://here-geocoding.readthedocs.io/en/latest/?version=latest
         :alt: Documentation Status
 
-.. image:: https://pepy.tech/badge/here-geocoding
-        :target: https://pepy.tech/badge/here-geocoding
+.. image:: https://static.pepy.tech/badge/here-geocoding
+        :target: https://static.pepy.tech/badge/here-geocoding
         :alt: Downloads
 
-.. image:: https://pepy.tech/badge/here-geocoding/month
-        :target: https://pepy.tech/badge/here-geocoding
+.. image:: https://static.pepy.tech/badge/here-geocoding/month
+        :target: https://static.pepy.tech/badge/here-geocoding
         :alt: Downloads
 
 
